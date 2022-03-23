@@ -114,53 +114,50 @@ double dt2b(float x1, float x2, float x3, int x4, int x5)
         for people who sit in front of the computer for a long time
         and who are in the developmental age. */
 
-// how much money should be spent on computer equipment
+// How much of the money you allocate on buying a computer should you buy computer equipment?
 
 float dt3a(int age, int isStudent, float timeOnComputer, int whatFor, int income)
 {
-   if(isStudent == 1)
-       return(takePercent(income,25.0));
-    else
+   
+    if(whatFor == 1) //1 = game
     {
-        if(whatFor == 1) //1 = game
+        if(timeOnComputer > 6)
         {
-            if(timeOnComputer > 6)
-            {
-                if(income>1000)
-                    return(takePercent(income,30.0));
-                else if(income>750)
-                    return(takePercent(income,20.0));
-                else if(income>500)
-                    return(takePercent(income,20.0));
-                else
-                    return(takePercent(income, 25.0));
-            }
-            else if(income > 400)
-                return(takePercent(income,10.0));
-            else
-                return(takePercent(income,2.5));
-        }
-        else if(whatFor == 2) //2 = music/movie
-        {
-            if(timeOnComputer<2)
-                return(takePercent(income,2.5));
-            else if(income>350)
-                return(takePercent(income,2.5));
-            else
-                return(takePercent(income, 1.0));
-        }
-        else if(whatFor == 3) //3 = work
-        {
-            if(age>40)
-                return(takePercent(income, 25.0));
-            else if(income>100)
-                return(takePercent(income, 20.0));
+            if(income>1000)
+                return(takePercent(income,30.0));
             else if(income>750)
-                return(takePercent(income, 5.0));
+                return(takePercent(income,20.0));
+            else if(income>500)
+                return(takePercent(income,20.0));
             else
-                return(takePercent(income, 2.5));
+               return(takePercent(income, 25.0));
         }
+        else if(income > 400)
+            return(takePercent(income,10.0));
+        else
+            return(takePercent(income,2.5));
     }
+    else if(whatFor == 2) //2 = music/movie
+    {
+        if(timeOnComputer<2)
+            return(takePercent(income,2.5));
+        else if(income>350)
+            return(takePercent(income,2.5));
+        else
+            return(takePercent(income, 1.0));
+    }
+    else if(whatFor == 3) //3 = work
+    {
+        if(age>40 || isStudent == 1)
+           return(takePercent(income, 25.0));
+        else if(income>1000)
+            return(takePercent(income, 20.0));
+        else if(income>750)
+            return(takePercent(income, 5.0));
+        else
+            return(takePercent(income, 2.5));
+    }
+    
 }
 
 float dt3b(int age, int isStudent, float timeOnComputer, int whatFor, int income)
@@ -216,12 +213,12 @@ float dt3b(int age, int isStudent, float timeOnComputer, int whatFor, int income
             if(isStudent == 1)
             {
                 if(income>750)
-                    return(takePercent(income, 25.0));
-                else
                     return(takePercent(income, 20.0));
+                else
+                    return(takePercent(income, 25.0));
             }
             else if(income>750)
-                return(takePercent(income, 5.0));
+                return(takePercent(income, 12.5));
             else
                 return(takePercent(income, 2.5));
         }
