@@ -82,6 +82,7 @@ int create_customer(char identity_number[], int password){
     const char* FILE_NAME = "customeraccounts.txt";
     FILE* database = fopen(FILE_NAME, "w");
     fprintf(database,"%s,%d", identity_number, password); //print to file process
+    return(1);
 }
 
 /* end functions of PART 2 */
