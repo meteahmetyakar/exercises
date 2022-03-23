@@ -84,7 +84,7 @@ double dt2b(float x1, float x2, float x3, int x4, int x5)
 
     if(12<x1 && x1<22)
     {
-        if(x3> 5/3)
+        if(x3> 5.0/3.0)
             return -2.0;
         else
         {
