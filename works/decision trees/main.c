@@ -117,7 +117,7 @@ int main() {
     }
     else if(selection == '2')
     {
-        printf("Please enter the x1, x2, x3, x4, x5 values in order\n");
+        printf("Please enter the x1, x2, x3, x4, x5 values in order\n"); 
         scanf("%f%f%f%d%d",&x1, &x2, &x3, &x4, &x5);
 
         result_dt2a = dt2a(x1, x2, x3, x4, x5);
