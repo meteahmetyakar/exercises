@@ -1,20 +1,19 @@
 all: clear clean compile run
 
-compile: main.c 
+compile: main.c
 	@echo "Compiling..."
-	@gcc main.c -c
-	@gcc main.o
+	@gcc -o test main.c -lm
 
 run:
 	@echo "Running the tests...."
-	./a.out
+	./test
 	@echo
 	@echo "Completed tests...."
 
 clean:
 	@echo "Removing compiled files..."
 	@rm -f *.o
-	@rm -f *.out
+	@rm -f test
 	
 clear:
 	@clear
