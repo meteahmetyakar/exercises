@@ -109,7 +109,7 @@ int main()
     }*/
     //remove("results.txt");
 
-    removeIndexFromTxt(0);
+    removeIndexFromTxt(3);
 }
     
 void removeIndexFromTxt(int index)
@@ -133,7 +133,7 @@ void removeIndexFromTxt(int index)
     {
         oldChar = newChar;
         newChar = fgetc(tempFile);
-        printf("%c-%c", oldChar,newChar);
+        printf("%c%c\n", oldChar,newChar);
         if(oldChar == ' ' && newChar != ' ')
             cursorIndex++;
         pos++;
@@ -143,15 +143,17 @@ void removeIndexFromTxt(int index)
     fseek(tempFile, pos, SEEK_SET);
     fscanf(tempFile, "%d ", &value);
 
-    while(value>0)
+
+
+    do
     {
         value = value/10;
         valueLenght++;
-    }
+    }while(value>0);
 
     fseek(tempFile, pos, SEEK_SET);
     for(int i=0; i<valueLenght; i++)
-        fputs(" ", tempFile);
+        fputs("a", tempFile);
 
     fclose(tempFile);
 }
