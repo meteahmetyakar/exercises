@@ -1,29 +1,22 @@
 #include <stdio.h>
 
+/* define colors for using on setTextColor function */
 #define reset 0
 #define green 1
 #define blue 2
 
-void setTextColor(int colorCode);
-void writeFile(char* txtName, char character, int mode);
-void clearTxt(char* txtName);
+void setTextColor(int colorCode); //it changes text color on terminal
 
 int main()
 {
 
     int x,y;
     int a, b, c;
-    char n1,n2,n3;
+    int A, B, C;
     char symbol;
     int repeater = 1, selection;
-    
-    clearTxt("graph.txt");
-    clearTxt("coefficients.txt");
 
-    a=0;
-    b=5;
-    c=0;
-
+    FILE* file;
 
     while(repeater)
     {
@@ -39,142 +32,158 @@ int main()
             case 1:
                 printf("Please enter the coefficients for the following equation x=a(y*y) + b*y + c \n\n");
                 printf("a: ");
-                scanf(" %c", &n1);
+                scanf(" %d", &A);
                 printf("b: ");
-                scanf(" %c", &n2);
+                scanf(" %d", &B);
                 printf("c: ");
-                scanf(" %c", &n3);
+                scanf(" %d", &C);
 
-                printf("\n coefficients.txt file has been created.");
+                printf("\ncoefficients.txt file has been created.\n");
 
-                writeFile("coefficients.txt", "48", 1);
-                writeFile("coefficients.txt", "2", 1);
-                writeFile("coefficients.txt", "3", 1);
+                file = fopen("coefficients.txt", "w");
+                fprintf(file, "%d\n%d\n%d", A,B,C);
+                fclose(file);
                 break;
             case 2:
-                for(int i=0; i<55; i++)
-                    printf(" ");
-                printf("^\n");
-
-                for(y = 15; y>=-15; y--)
+                if(file = fopen("coefficients.txt", "r"))   //if file is exist, it enter this scope
                 {
-                    for(x = -55; x<=55; x++)
+                    fscanf(file, "%d%d%d", &a,&b,&c);
+                    fclose(file);
+                    printf("\nCoefficients has been read from the coefficient.txt file.\n");
+                    printf("Printing the graph of x=%d(y*y) + %d*y + %d\n\n", a, b, c);
+
+                    for(y = 16; y>=-15; y--)
                     {
-
-
-                        if(y == -1 && (x % 10 == 0))
+                        for(x = -55; x<=55; x++)
                         {
-                            setTextColor(green);
-                            if(x < 0)
-                                printf("\b\b\b");
+
+                            setTextColor(reset); //reset the terminal text color
+
+                            if(x==(a*(y*y) + (b*y) + c) && y != 16) //We check -16 so that the y-axis does not put # on the line with the arrow
+                            {                                       //# is the most dominant character because printing is done in the first statement, and the graphic is always written at the top
+                                setTextColor(blue);
+                                printf("#");
+                            }
+                            else if(y == 16 && x == 0)
+                                printf("^");
+                            else if(x == -2 && (y % 5 == 0 && y != 0))
+                            {
+                                if(y == 15 || y == 10 || y == -5)
+                                    printf("\b");
+                                else if(y == -15 || y == -10)
+                                    printf("\b\b");
+
+                                setTextColor(green);
+                                printf("%d", y);    //write numbers of y-axis
+                            }
                             else if(x == 0)
-                                printf("\b");
+                                printf("|");
+                            else if(y == 0)
+                            {
+                                if(x==-55)
+                                    printf("<");
+                                else if(x==55)
+                                    printf(">");
+                                else
+                                    printf("-");
+                            }
+                            else if(y==-1) //in this scope we writing numbers of the x-axis
+                            {
+                                setTextColor(green);
+                                if(x % 10 == -9)
+                                    printf("0");
+                                else if(x%10==0)
+                                {
+                                    if(x<=0)
+                                        printf("%d", -1*x/10);
+                                    else
+                                        printf("%d", x/10);
+                                }
+                                else if(x % 10 == -1)
+                                {
+                                    if(x==-1)
+                                        printf("0");
+                                    else
+                                        printf("-");
+                                }
+                                else if(x % 10 == 1 && x != 1)
+                                    printf("0");
+                                else
+                                    printf(" ");
+                                setTextColor(reset);
+                            }
                             else
-                                printf("\b\b");
-                            printf("%d", x);
+                                printf(" ");
                         }
-
-                        setTextColor(reset);
-                        
-
-                        if(x==(a*(y*y) + (b*y) + c))
-                        {
-                            setTextColor(blue);
-                            printf("#");
-                        }
-                        else if(x == -2 && (y % 5 == 0 && y != 0))
-                        {
-                            if(y == 15 || y == 10 || y == -5)
-                                printf("\b");
-                            else if(y == -15 || y == -10)
-                                printf("\b\b");
-                            
-                            setTextColor(green);
-                            printf("%d", y);
-                        }
-                        else if(x == 0)
-                            printf("|");
-                        else if(y == 0)
-                        {
-                            if(x==-55)
-                                printf("<");
-                            else if(x==55)
-                                printf(">");
-                            else
-                                printf("-");
-                        }
-                        else
-                            printf(" ");
+                        printf("\n");
                     }
-                    printf("\n");
                 }
+                else
+                    printf("\n\n### THERE IS NO COEFFICIENTS.TXT FILE IN DIRECTORY###\n\n");
+
                 break;
             case 3:
-                for(int i=0; i<55; i++)
-                    writeFile("graph.txt", ' ', 0);
+                if(file = fopen("coefficients.txt", "r"))   //if file is exist, it enter this scope
+                {   //here we do same thing in case 2, only there are no numbers writing and we write to file symbols
+                    fscanf(file, "%d%d%d", &a,&b,&c);
+                    fclose(file);
 
-                writeFile("graph.txt", '^', 0);
-                writeFile("graph.txt", '\n', 0);
+                    printf("\nCoefficients has been read from the coefficient.txt file.\n");
+                    printf("The graph of x=%d*(y*y) + %d*y + %d has been written to graph.txt file.\n\n", a, b, c);
 
-                for(y = 15; y>=-15; y--)
-                {
-                    for(x = -55; x<=55; x++)
+                    file = fopen("graph.txt", "w");
+
+                    for(int i=0; i<55; i++)
+                        fprintf(file," ");
+
+                    fprintf(file, "^");
+                    fprintf(file,"\n");
+
+                    for(y = 15; y>=-15; y--)
                     {
-                        if(x==(a*(y*y) + (b*y) + c))
-                            symbol = '#'; 
-                        else if(x == 0)
-                            symbol = '|'; 
-                        else if(y == 0)
+                        for(x = -55; x<=55; x++)
                         {
-                            if(x==-55)
-                                symbol = '<'; 
-                            else if(x==55)
-                                symbol = '>';
+                            if(x==(a*(y*y) + (b*y) + c))
+                                fprintf(file, "#");
+                            else if(x == 0)
+                                fprintf(file, "|");
+                            else if(y == 0)
+                            {
+                                if(x==-55)
+                                    fprintf(file, "<");
+                                else if(x==55)
+                                    fprintf(file, ">");
+                                else
+                                    fprintf(file, "-");
+                            }
                             else
-                                symbol = '-'; 
+                                fprintf(file, " ");
+
                         }
-                        else
-                            symbol = ' '; 
-                        
-                        writeFile("graph.txt", symbol, 0);
+                        fprintf(file,"\n");
                     }
-                    writeFile("graph.txt", '\n', 0);
+                    fclose(file);
                 }
+                else
+                    printf("\n\n### THERE IS NO COEFFICIENTS.TXT FILE IN DIRECTORY###\n\n");
                 break;
             case 4:
-                repeater = 0;
+                repeater = 0; //exit
                 break;
             default:
-                printf("wrong");
+                printf("\n\n### ENTERED A WRONG INPUT ###\n\n");
                 break;
         }
     }
-    
+
 }
 
-void clearTxt(char* txtName)
-{
-    FILE* file;
-    file = fopen(txtName, "w");
-    fclose(file);
-}
-
-void writeFile(char* txtName, char character, int newLine)
-{
-    FILE* file;
-    file = fopen(txtName, "a");
-    fprintf(file, "%c", character);
-    if(newLine == 1)
-        fprintf(file, "\n");
-    fclose(file);
-}
-
-void setTextColor(int colorCode)
+void setTextColor(int colorCode) //it changes text color on terminal
 {
     if(colorCode == 0)
         printf("\033[0m");      //reset
     else if(colorCode == 1)
-        printf("\033[0;32m");    //green
+        printf("\033[0;32m");   //green
     else if(colorCode == 2)
         printf("\033[0;34m");   //blue
 }

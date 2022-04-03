@@ -1,10 +1,10 @@
 all: clean compile run
 
-compile: main.c util.c util.h
+compile: test_driver.c util.c util.h
 	@echo "-------------------------------------------"
 	@echo "Compiling..."
-	@gcc main.c -c
-	@gcc -o test.out main.o util.c
+	@gcc test_driver.c -c
+	@gcc -o test.out test_driver.o util.c
 
 run:
 	@echo "-------------------------------------------"
