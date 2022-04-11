@@ -8,7 +8,7 @@ typedef enum {Area=1, Perimeter=2, Volume=3} calculators;
 
 #define PI 3.14
 
-//operation functions
+//operation function
 int select_shape();
 int select_calc();
 int calculate(int (), int ());

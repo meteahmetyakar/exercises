@@ -6,10 +6,10 @@ compile: main.c
 	@gcc main.o -lm
 
 run:
-	@echo "Running the tests...."
+	@echo "Running the tests..."
 	./a.out
 	@echo
-	@echo "Completed tests...."
+	@echo "Completed tests..."
 
 clean:
 	@echo "Removing compiled files..."
