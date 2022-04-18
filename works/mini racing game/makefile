@@ -1,7 +1,7 @@
 all: clear clean compile run
 
 compile: main.c 
-	@echo "Compiling..."
+	@echo "Compiling...."
 	@gcc main.c -c 
 	@gcc main.o -lm
 
