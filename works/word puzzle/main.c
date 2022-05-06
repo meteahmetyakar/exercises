@@ -23,7 +23,7 @@ void setTextColor(int colorCode); 									//changing the terminal color
 void clearBuffer();
 
 enum directions {LEFT_TO_RIGHT, RIGHT_TO_LEFT, UP_TO_DOWN, DOWN_TO_UP, LEFT_UP_CROSS, RIGHT_UP_CROSS, LEFT_DOWN_CROSS, RIGHT_DOWN_CROSS};
-enum colors {reset, green};
+enum colors {reset, green, red};
 
 int main()
 {
@@ -174,11 +174,14 @@ void fillMap(char wordArray[][100], char map[ROWSIZE][COLUMNSIZE])
 
 
 	 	/* IF YOU OPEN THIS BLOCK IT PRINTS ANSWER KEY */
-
+		/*****************************************/
 			printMap(map);
 			printf("\n");
+			setTextColor(red);
 			printf("YOU CAN TURN OFF ANSWERS FROM MAIN.C LINE 180");
 			printf("\n\n\n");
+			setTextColor(reset);
+		/*****************************************/
 
 
 
@@ -721,7 +724,10 @@ void setTextColor(int colorCode) //it changes text color on terminal
     if(colorCode == 0)
         printf("\033[0m");      //reset
     else if(colorCode == 1)
-        printf("\033[0;32m");   //green
+        printf("\033[0;32m");   //green}
+	else if(colorCode == 2)
+		printf("\033[31m");
+
 }
 
 
