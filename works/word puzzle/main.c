@@ -15,6 +15,7 @@ void printMap(char map[ROWSIZE][COLUMNSIZE]);						//printing the given array
 void fillUniqueNumbers(int array[], int arraySize, int limit); 		//filling array with random unique numbers
 
 int isThereInArray(int number, int array[], int arraySize); 		//checking number in array, if there is in array, function returns 1
+int isThereWord(char wordArray[][100], int arraySize, char word[100]);
 int setCorrectWord(char map[ROWSIZE][COLUMNSIZE], int columnIndex, int rowIndex, char word[100]);	//adding word with random direction to map
 int findWord(char word[100], char map[ROWSIZE][COLUMNSIZE], int columnIndex, int rowIndex); 		//checking word, if there is in given column-row indexes return 1 else 0
 int checkQuit();													//Checking if the user has entered :q
@@ -38,7 +39,6 @@ int main()
 		for(int j=0; j<COLUMNSIZE; j++)
 			map[i][j] = ' ';
 
-
 	fillMap(wordArray, map);
 	printMap(map);
 
@@ -60,17 +60,17 @@ int main()
 		}
 		else	//enter if if correct format
 		{
-			if(findWord(word, map, row, column) == 0) //if given word is not in given row-column findWord function returns 0
-			{
-				health--;
-				if(health != 0)
-					printf("\n\nWrong choice! You have only %d lefts\n\n", health);
-			}
-			else
+			if(isThereWord(wordArray, NUMBEROFDATA, word) && findWord(word, map, row, column) == 1) //if given word is not in given row-column findWord function returns 0
 			{
 				totalPoint += 2;
 				correctCounter++;
 				printf("\n\nFounded! You got 2 point. Your total points: %d\n\n", totalPoint);
+			}
+			else
+			{
+				health--;
+				if(health != 0)
+					printf("\n\nWrong choice! You have only %d lefts\n\n", health);
 
 			}
 			printMap(map);
@@ -139,6 +139,15 @@ int isThereInArray(int number, int array[], int arraySize)
 	return 0;
 }
 
+int isThereWord(char wordArray[][100], int arraySize, char word[100])
+{
+	for(int i=0; i<arraySize; i++)
+		if(strcmp(wordArray[i],word)==0) return 1;
+
+	return 0;
+
+}
+
 void fillMap(char wordArray[][100], char map[ROWSIZE][COLUMNSIZE])
 {
 	char word[100];
@@ -178,7 +187,7 @@ void fillMap(char wordArray[][100], char map[ROWSIZE][COLUMNSIZE])
 			printMap(map);
 			printf("\n");
 			setTextColor(red);
-			printf("YOU CAN TURN OFF ANSWERS FROM MAIN.C LINE 180");
+			printf("YOU CAN TURN OFF THE ANSWERS FROM MAIN.C LINE 185");
 			printf("\n\n\n");
 			setTextColor(reset);
 		/*****************************************/
@@ -479,8 +488,6 @@ int checkQuit()
 
 	}while(c != '\n');
 
-
-	printf("%s", input);
 	if(strcmp(input, ":q") == 0)
 		return 1;
 	else
@@ -729,6 +736,3 @@ void setTextColor(int colorCode) //it changes text color on terminal
 		printf("\033[31m");
 
 }
-
-
-
