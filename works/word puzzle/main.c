@@ -207,20 +207,20 @@ int setCorrectWord(char map[ROWSIZE][COLUMNSIZE], int columnIndex, int rowIndex,
 
 	int isCollideRight, isCollideLeft, isCollideUp, isCollideDown;
 
+	/* checking if collides border */
 	isCollideRight = (COLUMNSIZE < columnIndex + lenghtOfData);
 	isCollideLeft = (-1 > columnIndex - lenghtOfData);
 	isCollideUp = (-1 > rowIndex - lenghtOfData);
 	isCollideDown = (ROWSIZE < rowIndex + lenghtOfData);
 
-	while(tryingCounter < DIRECTION_LIMIT)
+	while(tryingCounter < DIRECTION_LIMIT)	//if tryinCounter equal to direction limit this mean all directions checked
 	{
 		direction = rand() % DIRECTION_LIMIT;
 		isThereCharOnWay = 0;
 		switch(direction)
 		{
 			case LEFT_TO_RIGHT:
-
-				if(!isCollideRight && directionMap[LEFT_TO_RIGHT] == 0)
+				if(!isCollideRight && directionMap[LEFT_TO_RIGHT] == 0)	//if there is no char on direction way it fill the direction as correct word
 				{
 					directionMap[LEFT_TO_RIGHT] = 1;
 					tryingCounter++;
@@ -246,8 +246,7 @@ int setCorrectWord(char map[ROWSIZE][COLUMNSIZE], int columnIndex, int rowIndex,
 				break;
 
 			case RIGHT_TO_LEFT:
-
-				if(!isCollideLeft && directionMap[RIGHT_TO_LEFT] == 0)
+				if(!isCollideLeft && directionMap[RIGHT_TO_LEFT] == 0) //if there is no char on direction way it fill the direction as correct word
 				{
 					directionMap[RIGHT_TO_LEFT] = 1;
 					tryingCounter++;
@@ -273,8 +272,7 @@ int setCorrectWord(char map[ROWSIZE][COLUMNSIZE], int columnIndex, int rowIndex,
 				break;
 
 			case UP_TO_DOWN:
-
-				if(!isCollideDown && directionMap[UP_TO_DOWN] == 0)
+				if(!isCollideDown && directionMap[UP_TO_DOWN] == 0) //if there is no char on direction way it fill the direction as correct word
 				{
 					directionMap[UP_TO_DOWN] = 1;
 					tryingCounter++;
@@ -300,8 +298,7 @@ int setCorrectWord(char map[ROWSIZE][COLUMNSIZE], int columnIndex, int rowIndex,
 				break;
 
 			case DOWN_TO_UP:
-
-				if(!isCollideUp && directionMap[DOWN_TO_UP] == 0)
+				if(!isCollideUp && directionMap[DOWN_TO_UP] == 0) //if there is no char on direction way it fill the direction as correct word
 				{
 					directionMap[DOWN_TO_UP] = 1;
 					tryingCounter++;
@@ -327,8 +324,7 @@ int setCorrectWord(char map[ROWSIZE][COLUMNSIZE], int columnIndex, int rowIndex,
 				break;
 
 			case LEFT_UP_CROSS:
-
-				if(!isCollideLeft && !isCollideUp && directionMap[LEFT_UP_CROSS] == 0)
+				if(!isCollideLeft && !isCollideUp && directionMap[LEFT_UP_CROSS] == 0) //if there is no char on direction way it fill the direction as correct word
 				{
 					directionMap[LEFT_UP_CROSS] = 1;
 					tryingCounter++;
@@ -353,9 +349,8 @@ int setCorrectWord(char map[ROWSIZE][COLUMNSIZE], int columnIndex, int rowIndex,
 				}
 				break;
 
-			case RIGHT_UP_CROSS:
-
-				if(!isCollideRight && !isCollideUp && directionMap[RIGHT_UP_CROSS] == 0)
+			case RIGHT_UP_CROSS: 
+				if(!isCollideRight && !isCollideUp && directionMap[RIGHT_UP_CROSS] == 0) //if there is no char on direction way it fill the direction as correct word
 				{
 					directionMap[RIGHT_UP_CROSS] = 1;
 					tryingCounter++;
@@ -381,8 +376,7 @@ int setCorrectWord(char map[ROWSIZE][COLUMNSIZE], int columnIndex, int rowIndex,
 				break;
 
 			case LEFT_DOWN_CROSS:
-
-				if(!isCollideLeft && !isCollideDown && directionMap[LEFT_DOWN_CROSS] == 0)
+				if(!isCollideLeft && !isCollideDown && directionMap[LEFT_DOWN_CROSS] == 0) //if there is no char on direction way it fill the direction as correct word
 				{
 					directionMap[LEFT_DOWN_CROSS] = 1;
 					tryingCounter++;
@@ -408,8 +402,7 @@ int setCorrectWord(char map[ROWSIZE][COLUMNSIZE], int columnIndex, int rowIndex,
 				break;
 
 			case RIGHT_DOWN_CROSS:
-
-				if(!isCollideRight && !isCollideDown && directionMap[RIGHT_DOWN_CROSS] == 0)
+				if(!isCollideRight && !isCollideDown && directionMap[RIGHT_DOWN_CROSS] == 0) //if there is no char on direction way it fill the direction as correct word
 				{
 					directionMap[RIGHT_DOWN_CROSS] = 1;
 					tryingCounter++;
@@ -440,7 +433,7 @@ int setCorrectWord(char map[ROWSIZE][COLUMNSIZE], int columnIndex, int rowIndex,
 
 }
 
-void printMap(char map[COLUMNSIZE][ROWSIZE])
+void printMap(char map[COLUMNSIZE][ROWSIZE]) //printing given map(matrix)
 {
 	for(int i=0; i<ROWSIZE; i++)
 	{
@@ -458,7 +451,7 @@ void printMap(char map[COLUMNSIZE][ROWSIZE])
 	}
 }
 
-int checkQuit()
+int checkQuit()	//checking if user enter :q
 {
 	char input[100], c;
 	int i=0;
@@ -467,6 +460,7 @@ int checkQuit()
 	{
 		c = getchar();
 
+		/* clearing buffer and add values to input array */
 		if(c == '\n')
 			input[i] = '\0';
 		else
@@ -476,9 +470,9 @@ int checkQuit()
 
 	}while(c != '\n');
 
+	//when we come here buffer has been clear and input array filled
 
-	printf("%s", input);
-	if(strcmp(input, ":q") == 0)
+	if(strcmp(input, ":q") == 0) //we check input if it equal to :q return 1 and quit the game
 		return 1;
 	else
 		return 0;
@@ -503,7 +497,7 @@ int findWord(char word[100], char map[ROWSIZE][COLUMNSIZE], int rowIndex, int co
 	while(direction < DIRECTION_LIMIT)
 	{
 		isCorrect = 1;
-		switch(direction)
+		switch(direction) /* checking all directions and if find correct word then way filling with X character*/
 		{
 			case LEFT_TO_RIGHT:
 				if(!isCollideRight)
