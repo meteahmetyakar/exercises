@@ -176,7 +176,10 @@ void fillMap(char wordArray[][100], char map[ROWSIZE][COLUMNSIZE])
 	 	/* IF YOU OPEN THIS BLOCK IT PRINTS ANSWER KEY */
 
 			printMap(map);
+			printf("\n");
+			printf("YOU CAN TURN OFF ANSWERS FROM MAIN.C LINE 180");
 			printf("\n\n\n");
+
 
 
 
