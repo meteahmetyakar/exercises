@@ -1,6 +1,8 @@
 import pandas as pd
 import numpy as np
 
+comment = """
+
 #### Q1 ####
 #a
 s = pd.Series([7,11,13,17])
@@ -36,7 +38,7 @@ D={
 
 #Creating dataFrame
 temparatures=pd.DataFrame(D)
-#printing the dataframe 
+#printing the dataframe
 print("a):")
 print(temparatures)
 print()
@@ -136,7 +138,7 @@ allRecordsCount = len(employees.index) + len(departments.index) + len(job_histor
 #c
 result = employees.sort_values('first_name', ascending=False)
 
-comment = """print("First Name      Last Name       Salary    Department Id:")
+print("First Name      Last Name       Salary    Department Id:")
 for index, row in result.iterrows():
     if(int(str(row['salary']).ljust(9)) > 10000):
         print(row['first_name'].ljust(15),row['last_name'].ljust(15),str(row['salary']).ljust(9),row['department_id'])
@@ -153,7 +155,7 @@ for index, row in result.iterrows():
     if(row['department_id'] in [30,50,80]):
         print(row['first_name'].ljust(15),row['last_name'].ljust(15),str(row['salary']).ljust(9),row['department_id'])
 
-#f"""
+#f
 empt_dept = pd.merge(employees, departments, on=["department_id"])
 #print(empt_dept)
 
@@ -175,49 +177,124 @@ print(employees)
 #print(empt_dept.groupby('country_id'))
 
 #h
-
 emp_loc = pd.merge(locations, empt_dept, on=["location_id"])
 country_names = emp_loc['country_id'].unique()
 country_names = np.sort(country_names)
 
-print(emp_loc)
-
 city_names = emp_loc['city'].unique()
 city_names = np.sort(city_names)
-result = pd.DataFrame([]);
-for names in country_names:
-    for cnames in city_names:
-        sd = emp_loc.loc[(emp_loc['country_id'] == names) & (emp_loc['city'] == cnames)]
-        salaries = sd['salary']
 
-        lowSalary = np.array([])
-        midSalary = np.array([])
-        highSalary = np.array([])
-        skySalary = np.array([])
+data2 = {'country_id':[], 'city':[],'0, 5000':[], '5000, 10000':[], '10000, 15000':[], '15000, 25000':[]}
+result = pd.DataFrame(data2)
+temp = pd.DataFrame(data2)
 
-        print(salaries)
+for cnames in city_names:
+    sd = emp_loc.loc[(emp_loc['city'] == cnames)]
+    salaries = sd['salary']
 
-        for x in salaries:
-            if(0 <= x <= 5000):
-               lowSalary = np.append(lowSalary, x)
-            elif(5000 < x <= 10000):
-                midSalary = np.append(midSalary, x)
-            elif(10000< x <= 15000):
-                highSalary = np.append(highSalary, x)
-            elif(15000 < x <= 20500):
-                skySalary = np.append(skySalary, x)
+    lowSalary = np.array([])
+    midSalary = np.array([])
+    highSalary = np.array([])
+    skySalary = np.array([])
 
+    lowMean = 0
+    midMean = 0
+    highMean = 0
+    skyMean = 0
+
+    for x in salaries:
+        if(0 <= x <= 5000):
+           lowSalary = np.append(lowSalary, x)
+        elif(5000 < x <= 10000):
+            midSalary = np.append(midSalary, x)
+        elif(10000< x <= 15000):
+            highSalary = np.append(highSalary, x)
+        elif(15000 < x <= 20500):
+            skySalary = np.append(skySalary, x)
+
+    if not lowSalary.size == 0:
         lowMean = lowSalary.mean()
+    if not midSalary.size == 0:
         midMean = midSalary.mean()
+    if not highSalary.size == 0:
         highMean = highSalary.mean()
+    if not skySalary.size == 0:
         skyMean = skySalary.mean()
 
-        temp = pd.DataFrame({'low':lowMean, 'mis':midMean, 'high':highMean, 'sky':skyMean})
-    #pd.concat([result, temp], keys = [names])
+    country = emp_loc.loc[(emp_loc['city'] == cnames)]
+    country = country['country_id'].unique()
 
-print(result)
+    data = {'country_id':[country[0]], 'city':[cnames],'0, 5000':[lowMean], '5000, 10000':[midMean], '10000, 15000':[highMean], '15000, 25000':[skyMean]}
+    temp = pd.DataFrame(data)
 
-            
+    result = pd.concat([result, temp])
 
-print("3################")
-print(country_names)
+result = result.sort_values(by=['country_id'])
+
+print(result.to_string(index=False))
+4.satira git """
+
+#### Q4 ####
+covid_data= pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/05-10-2022.csv')
+covid_series= pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv')
+
+print(covid_data)
+print(covid_series)
+
+
+
+#a
+print("First 5 rows in covid_data")
+print(covid_data.head())
+
+print("\nFirst 5 rows in covid_series")
+print(covid_series.head())
+
+#b
+covid_data['Active'] = covid_data['Confirmed'] - covid_data['Deaths'] - covid_data['Recovered']
+resultB = covid_data.groupby('Country_Region')['Confirmed', 'Deaths', 'Recovered', 'Active'].sum().reset_index()
+print(resultB)
+
+#c
+covid_data = pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/05-10-2022.csv', usecols = ['Last_Update', 'Country_Region', 'Confirmed', 'Deaths', 'Recovered', 'Active'])
+resultC = covid_data.groupby('Country_Region').max().sort_values(by='Confirmed', ascending=False)
+pd.set_option('display.max_column', None)
+
+Death_Confirmed_Ratio = []
+for index, row in resultC.iterrows():
+    deaths = row['Deaths']
+    confirmed = row['Confirmed']
+    if not confirmed == 0:
+        Death_Confirmed_Ratio.append(deaths/confirmed*100)
+    else:
+        Death_Confirmed_Ratio.append(0)
+
+
+resultC['Death_Confirmed_Ratio'] = Death_Confirmed_Ratio
+resultC = resultC.loc[resultC['Confirmed'] > 1000].sort_values(by='Death_Confirmed_Ratio', ascending = False)
+print(resultC)
+
+
+#d
+resultB = resultB.sort_values(by='Confirmed', ascending = False)[:10]
+print(resultB)
+
+#resultD = covid_series.sort_values(by = 'Confirmed', ascending = False)
+top10Countries = resultB['Country_Region']
+resultB = resultB.sort_values(by='Confirmed', ascending = False)[:10]
+print(resultB)
+
+before = covid_series.loc[covid_series['Country/Region'].isin(top10Countries)]
+before = before.groupby('Country/Region').sum()
+pd.set_option('display.max_rows', None)
+
+index_no = before.columns.get_loc("3/11/20")
+
+after = before.iloc[:10, index_no:-1]
+print(after)
+
+
+import matplotlib.pyplot as plt
+
+after.T.plot(figsize=(15,15),lw=8)
+plt.show()
