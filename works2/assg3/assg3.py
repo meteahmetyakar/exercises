@@ -1,7 +1,6 @@
 import pandas as pd
 import numpy as np
 
-comment = """
 
 #### Q1 ####
 #a
@@ -10,20 +9,20 @@ print(s)
 
 
 #b
-s1 = pd.Series(100.0,index=[0,1,2,3,4])
+s1 = pd.Series(100.0,index=[0,1,2,3,4]) #creating 5 size array and filling it 100's
 print(s1)
 
 #c
-s2 = pd.Series(np.random.randint(0, 100, size = 20))
+s2 = pd.Series(np.random.randint(0, 100, size = 20)) #creating randomly array
 print(s2)
 s2.describe()
 
 #d
-temperatures = pd.Series([98.6,98.9,100.2,97.9],index=['Julie','Charlie','Sam','Andrea'])
+temperatures = pd.Series([98.6,98.9,100.2,97.9],index=['Julie','Charlie','Sam','Andrea']) #creating a serie and filling floats with keys
 print(temperatures)
 
 #e
-s3 = pd.Series({'Julie':98.6 ,'Charlie':98.9,'Sam':100.2,'Andrea':97.9})
+s3 = pd.Series({'Julie':98.6 ,'Charlie':98.9,'Sam':100.2,'Andrea':97.9}) 
 
 
 #### Q2 ####
@@ -36,46 +35,42 @@ D={
     'Amanda':[56,43,24]
 }
 
-#Creating dataFrame
-temparatures=pd.DataFrame(D)
-#printing the dataframe
+temparatures=pd.DataFrame(D) #creating dataFrame
+
 print("a):")
 print(temparatures)
 print()
 
 #b)
-#Recreating the dataframe
 temparatures=pd.DataFrame(D,index=["Morning","Afternoon","Evening"])
 print("b):")
-#printing the dataframe
+
 print(temparatures)
 print()
 
 #c)
-#Selecting the column maxine
 print("c):")
-c=temparatures[['Maxine']]
+c=temparatures[['Maxine']] #selecting the maxine column
 print(c)
 print()
 
 #d)
-#Selecing the row Morning using the loc[] method
+
 print("d):")
-d=temparatures.loc[["Morning"],:]
+d=temparatures.loc[["Morning"],:] #selecting the row Morning using the loc[] method
 print(d)
 print()
 
 #e)
-#Selecting the rows for Morning and Evening using the loc[] method
 print("e):")
-e=temparatures.loc[["Morning","Evening"],:]
+e=temparatures.loc[["Morning","Evening"],:] #selecting the rows for Morning and Evening using the loc[] method
 print(e)
 print()
 
 #f)
-#Selecting the data under column Amanda and row Morning
+
 print("f):")
-f=temparatures[["Amanda"]].loc[["Morning"],:]
+f=temparatures[["Maxine"]].loc[["Amanda"],:] #selecting column Amanda and row Maxine
 print(f)
 print()
 
@@ -232,7 +227,6 @@ for cnames in city_names:
 result = result.sort_values(by=['country_id'])
 
 print(result.to_string(index=False))
-4.satira git """
 
 #### Q4 ####
 covid_data= pd.read_csv('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/05-10-2022.csv')
@@ -292,7 +286,6 @@ index_no = before.columns.get_loc("3/11/20")
 
 after = before.iloc[:10, index_no:-1]
 print(after)
-
 
 import matplotlib.pyplot as plt
 
