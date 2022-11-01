@@ -1,4 +1,5 @@
-* ### Some of my favorite works. You can check the studies and little exercises folders for all of them.
+* ### You can check the studies and little exercises folders for all of them.
+
 
 |Problem    |Description |Solution   |
 |:-----------:|:-|:--------------:|
