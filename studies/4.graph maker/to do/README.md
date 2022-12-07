@@ -1,19 +1,4 @@
-# TITLE
-
-[CLICKABLE](https://meteahmetyakar.github.io/temp/)
-
 <p align = "center">
-  <img src="https://github.com/meteahmetyakar/temp/blob/main/images/temp.png" width="360" height="760" /> 
-  <img src="https://github.com/meteahmetyakar/temp/blob/main/images/temp.gif" width="360" height="760" /> 
-  
+    <img src="https://github.com/meteahmetyakar/exercises/blob/main/studies/4.graph%20maker/images/image1.jpg" /> 
+    <img src="https://github.com/meteahmetyakar/exercises/blob/main/studies/4.graph%20maker/images/image2.jpg" /> 
 </p>
-
-
-| TEMP TABLE   |               
-| ------------- |
-
-| Column Name   | Data Type     |
-| ------------- |:-------------:|
-| DATA | DATA   |
-| DATA           | DATA   |
-| DATA          | DATA      |
