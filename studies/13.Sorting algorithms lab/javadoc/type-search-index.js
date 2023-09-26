@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"algorithms","l":"BubbleSort"},{"p":"algorithms","l":"InsertionSort"},{"p":"hashing","l":"info"},{"p":"testing","l":"Main"},{"p":"algorithms","l":"mergeSort"},{"p":"hashing","l":"myMap"},{"p":"algorithms","l":"QuickSort"},{"p":"algorithms","l":"SelectionSort"}];updateSearchResults();
